@@ -24,6 +24,13 @@ const GEMINI_API_KEY = "keys.gemini_api_key"
 const GROQ_API_KEY = "keys.groq_api_key"
 const GROQ_API_HOST = 'keys.groq_api_host'
 
+// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
+const UMC_OPEN_AI_API_KEY = "keys.umc_openai_api_key"
+const UMC_OPEN_AI_ENDPOINT = "keys.umc_openai_endpoint"
+const UMC_OPEN_AI_DEPLOYMENT_NAME = "keys.umc_openai_deployment_name"
+const UMC_OPEN_AI_API_VERSION = "keys.umc_openai_api_version"
+
+
 export const ollamaHost = useStorage(OLLAMA_HOST, '')
 export const ollamaUsername = useStorage(OLLAMA_USERNAME, '')
 export const ollamaPassword = useStorage(OLLAMA_PASSWORD, '')
@@ -45,6 +52,12 @@ export const geminiApiKey = useStorage(GEMINI_API_KEY, '')
 
 export const groqApiKey = useStorage(GROQ_API_KEY, '')
 export const groqApiHost = useStorage(GROQ_API_HOST, '')
+
+// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
+export const umcOpenaiApiKey = useStorage(UMC_OPEN_AI_API_KEY, '')
+export const umcOpenaiEndpoint = useStorage(UMC_OPEN_AI_ENDPOINT, '')
+export const umcOpenaiDeploymentName = useStorage(UMC_OPEN_AI_DEPLOYMENT_NAME, '')
+export const umcOpenaiApiVersion = useStorage(UMC_OPEN_AI_API_VERSION, '')
 
 export const fetchHeadersOllama = computed(() => {
   return {
@@ -73,6 +86,12 @@ export const fetchHeadersThirdApi = computed(() => {
 
     'x-groq-api-key': groqApiKey.value,
     'x-groq-api-host': groqApiHost.value,
+
+    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
+    'x-umc-openai-api-key': umcOpenaiApiKey.value,
+    'x-umc-openai-endpoint': umcOpenaiEndpoint.value,
+    'x-umc-openai-deployment-name': umcOpenaiDeploymentName.value,
+    'x-umc-openai-api-version': umcOpenaiApiVersion.value,
   }
 })
 
@@ -104,7 +123,7 @@ export async function loadModels(): Promise<ModelInfo[]> {
     .filter(el => el?.details?.family !== 'nomic-bert')
     .map(el => {
       return {
-        label: `${el?.details?.family === "Azure OpenAI" ? `Azure ${el.name}` : el.name}`,
+        label: `${el?.details?.family === "Azure OpenAI" ? `Azure ${el.name}` : (el?.details?.family === "UMC OpenAI" ? `UMC ${el.name}` : el.name)}`,
         value: el.name!,
         family: el?.details?.family,
       }

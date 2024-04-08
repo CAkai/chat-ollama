@@ -16,6 +16,12 @@ const KEYS = [
 
   'x-groq-api-key',
   'x-groq-api-host',
+
+  // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
+  "x-umc-openai-api-key",
+  "x-umc-openai-endpoint",
+  "x-umc-openai-deployment-name",
+  "x-umc-openai-api-version",
 ] as const
 
 type Replace<T extends string, From extends string, To extends string> = From extends '' ? T
