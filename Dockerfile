@@ -1,6 +1,11 @@
 ARG NODE_VERSION=20.12.2
 
 FROM node:${NODE_VERSION}-slim
+# 設定 PRISMA Engine 需要的 binary 路徑資料夾
+# 這是為了解決 Prisma Engine 在生產環境下無法從外部下載 binary 的問題
+# Arvin Yang - 2024/04/08
+ENV PRISMA_SCHEMA_ENGINE_BINARY=/app/prisma
+
 
 RUN apt-get update && apt-get install -y openssl
 
