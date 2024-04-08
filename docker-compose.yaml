@@ -1,5 +1,20 @@
 version: '3.1'
+
 services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    restart: always
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
   chromadb:
     image: chromadb/chroma
     ports:
@@ -30,3 +45,4 @@ services:
 volumes:
   chromadb_data:
   redis_data:
+  ollama_data:
