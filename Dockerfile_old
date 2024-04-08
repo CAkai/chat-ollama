@@ -1,16 +1,8 @@
-ARG NODE_VERSION=20.5.1
-
-FROM node:${NODE_VERSION}-slim
-
-RUN apt-get update && apt-get install -y openssl
+FROM 0001coder/chatollama:latest
 
 WORKDIR /app
 
 COPY pnpm-lock.yaml package.json ./
-
-RUN npm install -g pnpm
-
-RUN pnpm i
 
 COPY . .
 
