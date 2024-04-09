@@ -28,8 +28,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
-  if (umc_openai_api_key && umc_openai_endpoint && umc_openai_deployment_name && umc_openai_api_version) {
+  // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+  if (umc_openai_host) {
     UMC_OPENAI_GPT_MODELS.forEach((model) => {
       models.push({
         name: model,

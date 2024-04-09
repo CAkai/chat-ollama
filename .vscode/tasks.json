@@ -1,0 +1,22 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "編譯",
+            "type": "shell",
+            "command": "pnpm run build"
+        },
+        {
+            "label": "執行",
+            "type": "shell",
+            "command": "node .output/server/index.mjs"
+        },
+        {
+            "label": "部署",
+            "type": "shell",
+            "command": "pnpm run build & node .output/server/index.mjs"
+        }
+    ]
+}

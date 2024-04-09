@@ -24,11 +24,8 @@ const GEMINI_API_KEY = "keys.gemini_api_key"
 const GROQ_API_KEY = "keys.groq_api_key"
 const GROQ_API_HOST = 'keys.groq_api_host'
 
-// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
-const UMC_OPEN_AI_API_KEY = "keys.umc_openai_api_key"
-const UMC_OPEN_AI_ENDPOINT = "keys.umc_openai_endpoint"
-const UMC_OPEN_AI_DEPLOYMENT_NAME = "keys.umc_openai_deployment_name"
-const UMC_OPEN_AI_API_VERSION = "keys.umc_openai_api_version"
+// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+const UMC_OPENAI_HOST = "keys.umc_openai_host"
 
 
 export const ollamaHost = useStorage(OLLAMA_HOST, '')
@@ -53,17 +50,16 @@ export const geminiApiKey = useStorage(GEMINI_API_KEY, '')
 export const groqApiKey = useStorage(GROQ_API_KEY, '')
 export const groqApiHost = useStorage(GROQ_API_HOST, '')
 
-// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
-export const umcOpenaiApiKey = useStorage(UMC_OPEN_AI_API_KEY, '')
-export const umcOpenaiEndpoint = useStorage(UMC_OPEN_AI_ENDPOINT, '')
-export const umcOpenaiDeploymentName = useStorage(UMC_OPEN_AI_DEPLOYMENT_NAME, '')
-export const umcOpenaiApiVersion = useStorage(UMC_OPEN_AI_API_VERSION, '')
+// 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+export const umcOpenaiHost = useStorage(UMC_OPENAI_HOST, '')
 
 export const fetchHeadersOllama = computed(() => {
   return {
     'x-ollama-host': ollamaHost.value,
     'x-ollama-username': ollamaUsername.value,
     'x-ollama-password': ollamaPassword.value,
+    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+    'x-umc-openai-host': umcOpenaiHost.value,
   }
 })
 

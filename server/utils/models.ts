@@ -118,6 +118,7 @@ export const createEmbeddings = (embeddingModelName: string, event: H3Event): Em
 
 export const createChatModel = (modelName: string, family: string, event: H3Event): BaseChatModel => {
   const { host } = event.context.ollama
+  const { umc_host } = event.context.umc
   const keys = event.context.keys as ContextKeys
   let chat = null
   if (family === MODEL_FAMILIES.openai && OPENAI_GPT_MODELS.includes(modelName)) {
@@ -171,16 +172,12 @@ export const createChatModel = (modelName: string, family: string, event: H3Even
       verbose: true,
       modelName: modelName,
     })
-    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
+    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
   } else if (family === MODEL_FAMILIES.umcOpenai && UMC_OPENAI_GPT_MODELS.includes(modelName)) {
-    console.log(`Chat with UMC OpenAI endpoint: ${keys.x_umc_openai_endpoint} , deployment: ${keys.x_umc_openai_deployment_name}`)
-    chat = new ChatOpenAI({
-      temperature: 0.9,
-      azureOpenAIApiKey: keys.x_umc_openai_api_key, // In Node.js defaults to process.env.AZURE_OPENAI_API_KEY
-      azureOpenAIApiVersion: keys.x_umc_openai_api_version, // In Node.js defaults to process.env.AZURE_OPENAI_API_VERSION
-      azureOpenAIApiInstanceName: keys.x_umc_openai_endpoint, // In Node.js defaults to process.env.AZURE_OPENAI_API_INSTANCE_NAME
-      azureOpenAIApiDeploymentName: keys.x_umc_openai_deployment_name, // In Node.js defaults to process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME
-      modelName: modelName,
+    console.log(`Chat with UMC OpenAI Host: ${umc_host}`)
+    chat = new ChatOllama({
+      baseUrl: umc_host,
+      model: modelName,
     })
   } else {
     console.log("Chat with Ollama, host:", host)

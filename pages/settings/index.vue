@@ -11,6 +11,8 @@ const fields = [
   'moonshotApiKey', 'moonshotApiHost',
   'geminiApiKey',
   'groqApiKey',
+  // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+  'umcOpenaiHost'
 ] as const
 
 interface LLMListItem {
