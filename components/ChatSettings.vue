@@ -57,7 +57,7 @@ async function onSave() {
       modelFamily: currentModel.value?.family,
     })
 
-  props.onUpdated?.({
+  const newUpdatedOptions: UpdatedOptions = {
     title: state.title,
     attachedMessagesCount: state.attachedMessagesCount,
     modelInfo: currentModel.value!,
@@ -89,16 +89,12 @@ async function onReset() {
           <ModelsSelectMenu v-model="state.model" v-model:modelInfo="currentModel" />
         </UFormGroup>
         <UFormGroup label="Knowledge Base" name="knowledgeBaseId" class="mb-4">
-          <USelectMenu v-model="state.knowledgeBaseId"
-                       :options="knowledgeBases"
-                       value-attribute="id"
+          <USelectMenu v-model="state.knowledgeBaseId" :options="knowledgeBases" value-attribute="id"
                        option-attribute="name"
                        placeholder="Select a knowledge base"></USelectMenu>
         </UFormGroup>
         <UFormGroup label="Instruction" name="instructionId" class="mb-4">
-          <USelectMenu v-model="state.instructionId"
-                       :options="instructions"
-                       option-attribute="name"
+          <USelectMenu v-model="state.instructionId" :options="instructions" option-attribute="name"
                        value-attribute="id"
                        placeholder="Select Instruction"></USelectMenu>
           <div class="my-1 text-sm text-muted">{{ instructionContent }}</div>

@@ -174,9 +174,9 @@ export const createChatModel = (modelName: string, family: string, event: H3Even
     })
     // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
   } else if (family === MODEL_FAMILIES.umcOpenai && UMC_OPENAI_GPT_MODELS.includes(modelName)) {
-    console.log(`Chat with UMC OpenAI Host: ${umc_host}`)
+    console.log(`Chat with UMC OpenAI Host: ${keys.x_umc_openai_host}`)
     chat = new ChatOllama({
-      baseUrl: umc_host,
+      baseUrl: keys.x_umc_openai_host,
       model: modelName,
     })
   } else {

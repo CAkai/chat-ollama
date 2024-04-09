@@ -256,17 +256,21 @@ function onOpenSettings() {
       const updatedSessionInfo: Partial<ChatSession> = {
         title: data.title,
         attachedMessagesCount: data.attachedMessagesCount,
-        knowledgeBaseId: data.knowledgeBaseInfo?.id,
-        instructionId: data.instructionInfo?.id,
+        knowledgeBaseId: data?.knowledgeBaseInfo?.id || 0,
+        instructionId: data?.instructionInfo?.id || 0,
         model: data.modelInfo.value,
         modelFamily: data.modelInfo.family
       }
-      Object.assign(sessionInfo.value!, updatedSessionInfo)
-
+      // 沒辦法保證 sessionInfo.value 一定有值，所以要先判斷
+      if (!sessionInfo.value) {
+        sessionInfo.value = updatedSessionInfo
+      } else {
+        Object.assign(sessionInfo.value, updatedSessionInfo)
+      }
       model.value = data.modelInfo.value
       modelFamily.value = data.modelInfo.family || ''
-      knowledgeBaseInfo.value = data.knowledgeBaseInfo
-      instructionInfo.value = data.instructionInfo
+      knowledgeBaseInfo.value = data?.knowledgeBaseInfo || knowledgeBaseInfo.value
+      instructionInfo.value = data?.instructionInfo || instructionInfo.value
 
       emits('changeSettings', updatedSessionInfo)
     }
@@ -352,11 +356,7 @@ async function saveMessage(data: Omit<ChatHistory, 'sessionId'>) {
       </div>
     </div>
     <div class="shrink-0 pt-4 px-4 border-t border-gray-200 dark:border-gray-800">
-      <ChatInputBox ref="chatInputBoxRef"
-                    :disabled="!model"
-                    :loading="sending"
-                    @submit="onSend"
-                    @stop="onAbortChat">
+      <ChatInputBox ref="chatInputBoxRef" :disabled="!model" :loading="sending" @submit="onSend" @stop="onAbortChat">
         <div class="text-muted flex">
           <UTooltip v-if="sessionInfo?.model" text="Current Model" :popper="{ placement: 'top-start' }">
             <div class="flex items-center mr-4 cursor-pointer hover:text-primary-400" @click="onOpenSettings">
