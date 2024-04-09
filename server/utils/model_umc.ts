@@ -55,7 +55,7 @@ export class ChatUMC extends SimpleChatModel {
                         stream: true
                     }),
                 })
-                    .then(async (res) => {
+                    .then((res) => {
                         console.log(res)
                         return {
                             concat: (chunk: BaseMessageChunk) => {
