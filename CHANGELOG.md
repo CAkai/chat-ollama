@@ -1,5 +1,8 @@
 # 更新日誌
 
+## Unreleased - 2024-04-09
+- 加入 UMC GPT 的連線 API。
+
 ## 0.1.0 - 2024-04-08 - first commit
 - 複製自 [sugarforever/chat-ollama](https://github.com/sugarforever/chat-ollama)
 - 加入 UMC OpenAI。

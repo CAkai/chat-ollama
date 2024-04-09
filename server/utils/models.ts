@@ -9,6 +9,8 @@ import { ChatOpenAI } from '@langchain/openai'
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { ChatGroq } from "@langchain/groq"
 import { AzureChatOpenAI } from "@langchain/azure-openai"
+import { ChatUMC } from './model_umc'
+import { Ollama } from 'ollama'
 import { type H3Event } from 'h3'
 import { type ContextKeys } from '@/server/middleware/keys'
 import { type Ollama } from 'ollama'
@@ -175,7 +177,7 @@ export const createChatModel = (modelName: string, family: string, event: H3Even
     // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
   } else if (family === MODEL_FAMILIES.umcOpenai && UMC_OPENAI_GPT_MODELS.includes(modelName)) {
     console.log(`Chat with UMC OpenAI Host: ${keys.x_umc_openai_host}`)
-    chat = new ChatOllama({
+    chat = new ChatUMC({
       baseUrl: keys.x_umc_openai_host,
       model: modelName,
     })
