@@ -9,7 +9,7 @@ import { ChatOpenAI } from '@langchain/openai'
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { ChatGroq } from "@langchain/groq"
 import { AzureChatOpenAI } from "@langchain/azure-openai"
-import { ChatUMC } from './model_umc'
+import { ChatUMC } from './model-umc'
 import { Ollama } from 'ollama'
 import { type H3Event } from 'h3'
 import { type ContextKeys } from '@/server/middleware/keys'

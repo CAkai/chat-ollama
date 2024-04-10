@@ -16,7 +16,7 @@
         {
             "label": "部署",
             "type": "shell",
-            "command": "pnpm run build & node .output/server/index.mjs"
+            "command": "pnpm run build; node .output/server/index.mjs"
         }
     ]
 }
