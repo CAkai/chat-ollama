@@ -28,10 +28,10 @@ services:
       - CHROMADB_URL=http://chromadb:8000
       - DATABASE_URL=file:/app/sqlite/chatollama.sqlite
       - REDIS_HOST=redis
-    image: 0001coder/chatollama:latest
+    build: .
+    command: node .output/server/index.mjs
     ports:
       - "3000:3000"
-    pull_policy: always
     restart: always
     volumes:
       - ~/.chatollama:/app/sqlite
