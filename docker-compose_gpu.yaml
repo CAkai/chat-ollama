@@ -45,3 +45,4 @@ services:
 volumes:
   chromadb_data:
   ollama_data:
+  redis_data:
