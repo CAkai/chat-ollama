@@ -63,7 +63,7 @@ async function onSave() {
     modelInfo: currentModel.value!,
     knowledgeBaseInfo: knowledgeBaseInfo as KnowledgeBase,
     instructionInfo,
-  })
+  }
   props.onClose()
 }
 

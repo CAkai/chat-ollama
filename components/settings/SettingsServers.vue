@@ -12,6 +12,7 @@ const fields = [
   'moonshotApiKey', 'moonshotApiHost',
   'geminiApiKey',
   'groqApiKey', 'groqApiHost',
+  'umcOpenaiHost',
 ] as const
 
 interface LLMListItem {
@@ -32,6 +33,12 @@ const LLMList: LLMListItem[] = [
       { label: 'Host', value: 'ollamaHost', type: 'input', placeholder: '', rule: 'url' },
       { label: 'User Name', value: 'ollamaUsername', type: 'input', placeholder: 'Optional' },
       { label: 'Password', value: 'ollamaPassword', type: 'password', placeholder: 'Optional' },
+    ]
+  },
+  {
+    title: 'UMC OpenAI',
+    fields: [
+      { label: 'Host', value: 'umcOpenaiHost', type: 'input', placeholder: '', rule: 'url' },
     ]
   },
   {

@@ -14,7 +14,6 @@ services:
       - DATABASE_URL=file:/app/sqlite/chatollama.sqlite
       - REDIS_HOST=redis
     build: .
-    command: sh /app/scripts/startup.sh
     ports:
       - "3000:3000"
     restart: always

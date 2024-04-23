@@ -1,6 +1,10 @@
 # 更新日誌
 
-## Unreleased - 2024-04-09
+## Unreleased - 2024-04-23
+### Changed:
+- 與 2024/04/24 的 main 分支合併，然後重新實作 UMC OpenAI。
+
+## 0.2.0 - 2024-04-09
 ### Added:
 - 加入 UMC GPT 的連線 API。
 - 新增 `server/utils/model-umc.ts`，處理與 UMC GPT 的對接。

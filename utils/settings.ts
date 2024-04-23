@@ -58,8 +58,6 @@ export const fetchHeadersOllama = computed(() => {
     'x-ollama-host': ollamaHost.value,
     'x-ollama-username': ollamaUsername.value,
     'x-ollama-password': ollamaPassword.value,
-    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
-    'x-umc-openai-host': umcOpenaiHost.value,
   }
 })
 
@@ -83,11 +81,8 @@ export const fetchHeadersThirdApi = computed(() => {
     'x-groq-api-key': groqApiKey.value,
     'x-groq-api-host': groqApiHost.value,
 
-    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-08
-    'x-umc-openai-api-key': umcOpenaiApiKey.value,
-    'x-umc-openai-endpoint': umcOpenaiEndpoint.value,
-    'x-umc-openai-deployment-name': umcOpenaiDeploymentName.value,
-    'x-umc-openai-api-version': umcOpenaiApiVersion.value,
+    // 以下是 UMC Azure OpenAI 需要的參數 - 2024-04-09
+    'x-umc-openai-host': umcOpenaiHost.value,
   }
 })
 

@@ -10,7 +10,6 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { ChatGroq } from "@langchain/groq"
 import { AzureChatOpenAI } from "@langchain/azure-openai"
 import { ChatUMC } from './model-umc'
-import { Ollama } from 'ollama'
 import { type H3Event } from 'h3'
 import { type ContextKeys } from '@/server/middleware/keys'
 import { type Ollama } from 'ollama'
@@ -120,7 +119,6 @@ export const createEmbeddings = (embeddingModelName: string, event: H3Event): Em
 
 export const createChatModel = (modelName: string, family: string, event: H3Event): BaseChatModel => {
   const { host } = event.context.ollama
-  const { umc_host } = event.context.umc
   const keys = event.context.keys as ContextKeys
   let chat = null
   if (family === MODEL_FAMILIES.openai && OPENAI_GPT_MODELS.includes(modelName)) {

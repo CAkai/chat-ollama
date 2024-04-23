@@ -28,7 +28,6 @@ RUN --mount=type=cache,target=/usr/local/cache/.pnpm-store,id=pnpm_store,sharing
 # 因為依賴包可能會變動，所以獨立執行
 RUN --mount=type=cache,target=/usr/local/cache/.pnpm-store,id=pnpm_store,sharing=locked \
     --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=pnpm-lock.yaml,target=pnpm-lock.yaml \
     set -xe; \
     pnpm install;
 

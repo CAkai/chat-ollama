@@ -225,8 +225,9 @@ const onSend = async (data: ChatBoxFormData) => {
 onMounted(async () => {
   await Promise.all([loadOllamaInstructions(), loadKnowledgeBases()])
     .then(([res1, res2]) => {
-      instructions.push(...res1)
-      knowledgeBases.push(...res2)
+      // 保證回傳有值才寫入
+      if (!!res1 && res1.length > 0) instructions.push(...res1)
+      if (!!res2 && res2.length > 0) knowledgeBases.push(...res2)
     })
   initData(props.sessionId)
 })
@@ -261,12 +262,7 @@ function onOpenSettings() {
         model: data.modelInfo.value,
         modelFamily: data.modelInfo.family
       }
-      // 沒辦法保證 sessionInfo.value 一定有值，所以要先判斷
-      if (!sessionInfo.value) {
-        sessionInfo.value = updatedSessionInfo
-      } else {
-        Object.assign(sessionInfo.value, updatedSessionInfo)
-      }
+      Object.assign(sessionInfo.value!, updatedSessionInfo)
       model.value = data.modelInfo.value
       modelFamily.value = data.modelInfo.family || ''
       knowledgeBaseInfo.value = data?.knowledgeBaseInfo || knowledgeBaseInfo.value

@@ -19,5 +19,7 @@ const listKnowledgeBases = async (): Promise<KnowledgeBase[] | null> => {
 
 export default defineEventHandler(async (event) => {
   const knowledgeBases = await listKnowledgeBases()
-  return { knowledgeBases }
+  // 不能直接回傳 { knowledgeBases }，因為 knowledgeBases 可能是 null
+  // 這會導致系統卡住，因為 null 會被當成物件
+  return knowledgeBases?.length ? { knowledgeBases } : null
 })

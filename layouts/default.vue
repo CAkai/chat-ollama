@@ -13,10 +13,6 @@ const links = [
 <template>
   <div class="border-b border-gray-200 dark:border-gray-700">
     <div class="flex items-center justify-between max-w-6xl mx-auto px-4">
-      <h1 class="flex flex-row items-center mr-2">
-        <TheLogo class="w-[32px] h-[32px] mr-2" />
-        <span class="text-primary font-semibold text-lg">ChatOllama</span>
-      </h1>
       <div>
         <UHorizontalNavigation :links="links" />
       </div>
@@ -24,9 +20,6 @@ const links = [
         <div class="mx-2">
           <ColorMode />
         </div>
-        <ULink to="https://github.com/sugarforever/chat-ollama"
-               target="_blank"
-               class="i-mdi-github text-2xl ml-2"></ULink>
       </div>
     </div>
   </div>
