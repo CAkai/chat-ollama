@@ -1,22 +1,18 @@
 import { CallbackManagerForLLMRun } from '@langchain/core/callbacks/manager'
 import { BaseChatModelParams, SimpleChatModel } from "@langchain/core/language_models/chat_models"
-import { BaseMessage, BaseMessageChunk } from '@langchain/core/messages'
+import { BaseMessage, BaseMessageChunk, MessageType } from '@langchain/core/messages'
 import { ChatGenerationChunk } from '@langchain/core/outputs'
 import { ChatResult } from '@langchain/core/outputs'
 import { ChatOllamaInput } from "@langchain/community/chat_models/ollama"
 
 // 因為 BaseMessageChunk 必須要實現 concat 方法，所以這邊繼承 BaseMessageChunk 並實作 concat 方法
 class ChatUMCMessageChunk extends BaseMessageChunk {
-    constructor(fields: BaseMessageChunk) {
-        super(fields)
+    _getType(): MessageType {
+        throw new Error('Method not implemented.')
     }
 
     concat(chunk: BaseMessageChunk): BaseMessageChunk {
-        return new ChatUMCMessageChunk({
-            content: this.content + chunk.content,
-            additional_kwargs: chunk.additional_kwargs,
-            response_metadata: chunk.response_metadata,
-        })
+        return new ChatUMCMessageChunk(<string>this.content + <string>chunk.content)
     }
 }
 
@@ -65,6 +61,13 @@ export class ChatUMC extends SimpleChatModel {
                 }),
             })
 
+            if (!response.body) {
+                return new ChatGenerationChunk({
+                    text: "",
+                    message: new ChatUMCMessageChunk("")
+                })
+            }
+
             const reader = response.body.getReader()
             let partialData = '', data: any, chunk: ChatGenerationChunk
 
@@ -84,22 +87,16 @@ export class ChatUMC extends SimpleChatModel {
 
                     // 將資料轉換成 ChatGenerationChunk 物件，不然 server/api/models/chat/index.post.ts:115 會接不到
                     chunk = new ChatGenerationChunk({
-                        message: new ChatUMCMessageChunk({
-                            content: data?.choices?.[0]?.delta?.content ?? "",
-                            additional_kwargs: {},
-                            response_metadata: {},
-                        })
+                        text: "",
+                        message: new ChatUMCMessageChunk(data?.choices?.[0]?.delta?.content ?? (data?.choices?.[0]?.message?.content ?? ""))
                     })
                     yield chunk
                 } catch (err) { }
             }
         } catch (error) {
             return new ChatGenerationChunk({
-                message: new ChatUMCMessageChunk({
-                    content: "",
-                    additional_kwargs: {},
-                    response_metadata: {},
-                })
+                text: "",
+                message: new ChatUMCMessageChunk("")
             })
         }
     }
