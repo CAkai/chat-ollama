@@ -45,8 +45,8 @@ onMounted(() => {
 })
 
 async function onSave() {
-  const knowledgeBaseInfo = knowledgeBases.find(el => el.id === state.knowledgeBaseId)
-  const instructionInfo = instructions.find(el => el.id === state.instructionId)
+  const knowledgeBaseInfo = knowledgeBases?.find(el => el.id === state.knowledgeBaseId)
+  const instructionInfo = instructions?.find(el => el.id === state.instructionId)
 
   await clientDB.chatSessions
     .where('id')
